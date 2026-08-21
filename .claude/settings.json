@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -n \"$CLASP_CREDENTIALS\" ] && [ ! -f \"$HOME/.clasprc.json\" ]; then umask 077; printf '%s' \"$CLASP_CREDENTIALS\" > \"$HOME/.clasprc.json\"; fi",
+            "statusMessage": "Comprobando credenciales de clasp..."
+          }
+        ]
+      }
+    ]
+  }
+}

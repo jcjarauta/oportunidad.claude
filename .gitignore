@@ -1,4 +1,4 @@
 node_modules/
 .clasprc.json
 *.log
-.claude/
+.claude/settings.local.json

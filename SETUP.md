@@ -64,6 +64,28 @@ navegador local persistente, así que el flujo recomendado es:
 cuenta de servicio en el chat conmigo ni en un archivo versionado en git. Son
 equivalentes a una contraseña.
 
+### Auto-configuración en Claude Code on the web
+
+Este repo incluye un hook `SessionStart` en [.claude/settings.json](.claude/settings.json)
+que, al arrancar la sesión, reconstruye `~/.clasprc.json` a partir de una variable de
+entorno `CLASP_CREDENTIALS` — **si esa variable existe y el archivo aún no está
+presente**. Si no hay `CLASP_CREDENTIALS`, el hook no hace nada (no rompe la sesión).
+
+Para activarlo:
+
+1. En tu PC (donde `clasp login` ya está hecho), abre `~/.clasprc.json` y copia su
+   contenido completo (JSON) — hazlo tú mismo, no me pegues el contenido a mí.
+2. En la configuración del proyecto/entorno de Claude Code on the web para este repo,
+   añade un secret/variable de entorno llamado `CLASP_CREDENTIALS` con ese contenido
+   exacto.
+3. Cada nueva sesión cloud efímera para este repo reconstruirá `~/.clasprc.json`
+   automáticamente al arrancar, sin que tengas que repetir `clasp login`.
+
+Esto es un atajo cómodo, no la opción más segura a largo plazo: comparte las mismas
+credenciales OAuth entre todas las sesiones cloud. Si prefieres aislamiento por sesión,
+usa una cuenta de servicio de Google Cloud (ver más abajo) o repite `clasp login`
+manualmente en cada sesión nueva.
+
 ## Paso 3 — Vincular el repo con el proyecto Apps Script
 
 Una vez tengas clasp autenticado en el entorno donde trabajes:
